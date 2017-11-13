@@ -187,6 +187,7 @@ namespace Diagram_Generator
 			m_list = BinarySerializerUtility.Deserialize<List<T>>(filename);
 			return m_list != null ? true : false;
 		}
+		*/
 
 		/// <summary>
 		/// Method to serialise the m_list into XML format
@@ -195,7 +196,7 @@ namespace Diagram_Generator
 		/// <returns></returns>
 		public bool XMLSerialize(string filename)
 		{
-			return XMLSerializerUtility.Serialize<List<T>>(m_list, filename);
+			return Utility.Serialize<List<T>>(m_list, filename);
 		}
 
 		/// <summary>
@@ -205,9 +206,8 @@ namespace Diagram_Generator
 		/// <returns></returns>
 		public bool XMLDeSerialize(string filename)
 		{
-			m_list = XMLSerializerUtility.DeSerialize<List<T>>(filename);
+			m_list = Utility.DeSerialize<List<T>>(filename);
 			return m_list != null ? true : false;
 		}
-		*/
 	}
 }

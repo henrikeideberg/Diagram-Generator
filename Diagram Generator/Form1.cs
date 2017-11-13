@@ -23,7 +23,11 @@ namespace Diagram_Generator
 			//For testing
 			// - start with all positive coordinates
 			coordinates = new CoordinateManager();
-			coordinates.SetList(CoordinatesGenerator.PositiveCoordinates());
+			//coordinates.SetList(CoordinatesGenerator.PositiveCoordinates());
+			coordinates.SetList(CoordinatesGenerator.NegativeCoordinates());
+
+			listBoxCoordinates.DataSource = null;
+			listBoxCoordinates.DataSource = coordinates.ToStringArray();
 		}
 
 		private void diagramPanel_Paint(object sender, PaintEventArgs e)
@@ -109,6 +113,72 @@ namespace Diagram_Generator
 				//Manual setting of scale
 				//  ...tbd...
 			}
+		}
+
+		/// <summary>
+		/// Method to export recipeManager to XML.
+		/// The outcome of the operation is presented to the use via messageboxes.
+		/// </summary>
+		private void ExportRecipeManagerToXml(string fileName)
+		{
+			try
+			{
+				coordinates.XMLSerialize(fileName);
+				//string strMessage = string.Format("Reciperegistry is saved on disk at {0}", this.fileName);
+				//UserCommunication.DisplaySuccesfulMsgBox(strMessage);
+			}
+			catch (Exception e)
+			{
+				//UserCommunication.DisplayErrorMsgBox(e.Message);
+			}
+		}
+
+		/// <summary>
+		/// Method to read/deserialise a xml file specified by the user
+		/// in to recipeManager.
+		/// </summary>
+		private void ImportRecipeManagerFromXml(string fileName)
+		{
+			try
+			{
+				coordinates.XMLDeSerialize(fileName);
+				//string strMessage = string.Format("{0} is deserialized successfully! ", this.fileName);
+				//UserCommunication.DisplaySuccesfulMsgBox(strMessage);
+			}
+			catch (Exception e)
+			{
+				//UserCommunication.DisplayErrorMsgBox(e.Message);
+			}
+		}
+
+		private void exportXMLToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SaveFileDialog xmlExport = new SaveFileDialog();
+			xmlExport.Filter = "XML Files|*.xml";
+
+			//Show XML export dialog box
+			if (xmlExport.ShowDialog() == DialogResult.OK)
+			{
+				ExportRecipeManagerToXml(xmlExport.FileName);
+			}
+		}
+
+		private void importXMLToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			OpenFileDialog xmlImport = new OpenFileDialog();
+			xmlImport.Filter = "XML Files|*.xml";
+
+			//Show XML import/open dialog box
+			if (xmlImport.ShowDialog() == DialogResult.OK)
+			{
+				//Maybe I could all a check on the filenema?
+				ImportRecipeManagerFromXml(xmlImport.FileName);
+				//UpdateGui();
+				listBoxCoordinates.DataSource = null;
+				listBoxCoordinates.DataSource = coordinates.ToStringArray();
+			}
+			xmlImport.Dispose();
+			diagramPanel.Invalidate(); //How to repaint the panel?
 		}
 	}
 }

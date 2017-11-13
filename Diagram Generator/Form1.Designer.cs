@@ -31,14 +31,17 @@
 			this.diagramPanel = new System.Windows.Forms.Panel();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.dataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.exportXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.importXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.dataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.sortXdirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.sortYdirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnClearDiagram = new System.Windows.Forms.Button();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.listBoxCoordinates = new System.Windows.Forms.ListBox();
 			this.menuStrip1.SuspendLayout();
+			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// diagramPanel
@@ -48,6 +51,7 @@
 			this.diagramPanel.Name = "diagramPanel";
 			this.diagramPanel.Size = new System.Drawing.Size(669, 569);
 			this.diagramPanel.TabIndex = 0;
+			this.diagramPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.diagramPanel_Paint);
 			// 
 			// menuStrip1
 			// 
@@ -70,6 +74,26 @@
 			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
 			this.fileToolStripMenuItem.Text = "File";
 			// 
+			// exportXMLToolStripMenuItem
+			// 
+			this.exportXMLToolStripMenuItem.Name = "exportXMLToolStripMenuItem";
+			this.exportXMLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.exportXMLToolStripMenuItem.Text = "Export XML";
+			this.exportXMLToolStripMenuItem.Click += new System.EventHandler(this.exportXMLToolStripMenuItem_Click);
+			// 
+			// importXMLToolStripMenuItem
+			// 
+			this.importXMLToolStripMenuItem.Name = "importXMLToolStripMenuItem";
+			this.importXMLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.importXMLToolStripMenuItem.Text = "Import XML";
+			this.importXMLToolStripMenuItem.Click += new System.EventHandler(this.importXMLToolStripMenuItem_Click);
+			// 
+			// exitToolStripMenuItem
+			// 
+			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+			this.exitToolStripMenuItem.Text = "Exit";
+			// 
 			// dataToolStripMenuItem
 			// 
 			this.dataToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -79,34 +103,16 @@
 			this.dataToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
 			this.dataToolStripMenuItem.Text = "Data";
 			// 
-			// exportXMLToolStripMenuItem
-			// 
-			this.exportXMLToolStripMenuItem.Name = "exportXMLToolStripMenuItem";
-			this.exportXMLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.exportXMLToolStripMenuItem.Text = "Export XML";
-			// 
-			// importXMLToolStripMenuItem
-			// 
-			this.importXMLToolStripMenuItem.Name = "importXMLToolStripMenuItem";
-			this.importXMLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.importXMLToolStripMenuItem.Text = "Import XML";
-			// 
-			// exitToolStripMenuItem
-			// 
-			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.exitToolStripMenuItem.Text = "Exit";
-			// 
 			// sortXdirToolStripMenuItem
 			// 
 			this.sortXdirToolStripMenuItem.Name = "sortXdirToolStripMenuItem";
-			this.sortXdirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.sortXdirToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
 			this.sortXdirToolStripMenuItem.Text = "Sort x-dir";
 			// 
 			// sortYdirToolStripMenuItem
 			// 
 			this.sortYdirToolStripMenuItem.Name = "sortYdirToolStripMenuItem";
-			this.sortYdirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.sortYdirToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
 			this.sortYdirToolStripMenuItem.Text = "Sort y-dir";
 			// 
 			// btnClearDiagram
@@ -118,11 +124,30 @@
 			this.btnClearDiagram.Text = "Clear Diagram";
 			this.btnClearDiagram.UseVisualStyleBackColor = true;
 			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.listBoxCoordinates);
+			this.groupBox1.Location = new System.Drawing.Point(12, 375);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(386, 257);
+			this.groupBox1.TabIndex = 3;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Coordinates";
+			// 
+			// listBoxCoordinates
+			// 
+			this.listBoxCoordinates.FormattingEnabled = true;
+			this.listBoxCoordinates.Location = new System.Drawing.Point(260, 13);
+			this.listBoxCoordinates.Name = "listBoxCoordinates";
+			this.listBoxCoordinates.Size = new System.Drawing.Size(120, 238);
+			this.listBoxCoordinates.TabIndex = 0;
+			// 
 			// Diagram_Generator
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1085, 704);
+			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.btnClearDiagram);
 			this.Controls.Add(this.diagramPanel);
 			this.Controls.Add(this.menuStrip1);
@@ -131,6 +156,7 @@
 			this.Text = "Diagram Generator";
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -148,6 +174,8 @@
 		private System.Windows.Forms.ToolStripMenuItem sortXdirToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem sortYdirToolStripMenuItem;
 		private System.Windows.Forms.Button btnClearDiagram;
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.ListBox listBoxCoordinates;
 	}
 }
 
