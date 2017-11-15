@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Diagram_Generator
 {
@@ -8,24 +9,32 @@ namespace Diagram_Generator
 	{
 		public static int RoundDownToBase(int number)
 		{
+			int negative = 1;
+			if (number < 0) negative = -1;
+			number = number * negative;
+
 			int mod = 10;
 			while ((number % mod != number) && (number % mod != 0))
 			{
 				number = number - (number % mod);
 				mod = mod * 10;
 			}
-			return number;
+			return number * negative;
 		}
 
 		public static int RoundUpToBase(int number)
 		{
+			int negative = 1;
+			if (number < 0) negative = -1;
+			number = number * negative;
+
 			int mod = 10;
 			while ((number % mod != number) && (number % mod != 0))
 			{
 				number = number + (mod - (number % mod));
 				mod = mod * 10;
 			}
-			return number;
+			return number * negative;
 		}
 
 		public static float GetDelta(float nrOne, float nrTwo)
@@ -89,6 +98,81 @@ namespace Diagram_Generator
 				if (reader != null)
 					reader.Close();
 			}
+		}
+
+		public static bool AskUserIfSaveAnimalManagerToFile()
+		{
+			bool userRespone = false;
+			//Configure the messagebox
+			string message = "Save the coordinates?";
+			string caption = "Save?";
+			MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+			DialogResult result;
+
+			// Displays the MessageBox.
+			result = MessageBox.Show(Form.ActiveForm, message, caption, buttons);
+
+			if (result == DialogResult.Yes)
+			{
+				userRespone = true;
+				//If user wants to save the data - do it
+
+			}
+			return userRespone;
+		}
+
+		/// <summary>
+		/// A method which controls that a given string is neither null nor empty 
+		/// and should at least have one character other than a blank space (or escape sequences).
+		/// </summary>
+		/// <param name="stringToValidate"></param>
+		/// <returns></returns>
+		public static bool ValidateString(string stringToValidate)
+		{
+			//This will return
+			// - false if string is null (i.e. no data in the variable) or empty (i.e. "")
+			// - true otherwise
+			int length = 1;
+			return ValidateString(stringToValidate, length);
+		}
+
+		/// <summary>
+		/// A method which controls that a given string is
+		///  - neither null nor empty 
+		///    should at least have one character other than a blank space (or escape sequences).
+		///  - equal or greater than inputted length
+		/// </summary>
+		/// <param name="stringToValidate"></param>
+		/// <param name="length"></param>
+		/// <returns></returns>
+		public static bool ValidateString(string stringToValidate, int length)
+		{
+			bool result = true;
+			result = !string.IsNullOrEmpty(stringToValidate) && stringToValidate.Length >= length;
+			return result;
+		}
+
+		/// <summary>
+		/// Method to convert string to integer.
+		/// </summary>
+		/// <param name="input"></param>
+		/// <param name="output"></param>
+		public static bool ConvertStringToFloat(string input, out float output)
+		{
+			bool result = false;
+			output = 0;
+			try
+			{
+				output = Convert.ToSingle(input);
+				result = true;
+			}
+			catch (FormatException)
+			{
+				//Raise error if failure. The resulting output will be 0.
+				string error = String.Format("Unable to convert {0} to float", input);
+				MessageBox.Show(error);
+			}
+			return result;
 		}
 	}
 }

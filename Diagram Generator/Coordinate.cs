@@ -42,5 +42,18 @@ namespace Diagram_Generator
 				return (((IComparable)coordinate1).CompareTo(coordinate2));
 			}
 		}
+
+		public class SortByYCoord : IComparer<Coordinate>
+		{
+			public int Compare(Coordinate coordinate1, Coordinate coordinate2)
+			{
+				if (coordinate1.yCoord > coordinate2.yCoord)
+					return (1);
+				if (coordinate1.yCoord < coordinate2.yCoord)
+					return (-1);
+				else
+					return (0);
+			}
+		}
 	}
 }

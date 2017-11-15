@@ -40,8 +40,17 @@
 			this.btnClearDiagram = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.listBoxCoordinates = new System.Windows.Forms.ListBox();
+			this.labelNewXCoord = new System.Windows.Forms.Label();
+			this.labelNewYCoord = new System.Windows.Forms.Label();
+			this.textBoxNewXCoord = new System.Windows.Forms.TextBox();
+			this.textBoxNewYCoord = new System.Windows.Forms.TextBox();
+			this.buttonAddNewCoord = new System.Windows.Forms.Button();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.buttonReDraw = new System.Windows.Forms.Button();
 			this.menuStrip1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
+			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// diagramPanel
@@ -77,14 +86,14 @@
 			// exportXMLToolStripMenuItem
 			// 
 			this.exportXMLToolStripMenuItem.Name = "exportXMLToolStripMenuItem";
-			this.exportXMLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.exportXMLToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
 			this.exportXMLToolStripMenuItem.Text = "Export XML";
 			this.exportXMLToolStripMenuItem.Click += new System.EventHandler(this.exportXMLToolStripMenuItem_Click);
 			// 
 			// importXMLToolStripMenuItem
 			// 
 			this.importXMLToolStripMenuItem.Name = "importXMLToolStripMenuItem";
-			this.importXMLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.importXMLToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
 			this.importXMLToolStripMenuItem.Text = "Import XML";
 			this.importXMLToolStripMenuItem.Click += new System.EventHandler(this.importXMLToolStripMenuItem_Click);
 			// 
@@ -93,6 +102,7 @@
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
 			this.exitToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
 			this.exitToolStripMenuItem.Text = "Exit";
+			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
 			// 
 			// dataToolStripMenuItem
 			// 
@@ -108,12 +118,14 @@
 			this.sortXdirToolStripMenuItem.Name = "sortXdirToolStripMenuItem";
 			this.sortXdirToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
 			this.sortXdirToolStripMenuItem.Text = "Sort x-dir";
+			this.sortXdirToolStripMenuItem.Click += new System.EventHandler(this.sortXdirToolStripMenuItem_Click);
 			// 
 			// sortYdirToolStripMenuItem
 			// 
 			this.sortYdirToolStripMenuItem.Name = "sortYdirToolStripMenuItem";
 			this.sortYdirToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
 			this.sortYdirToolStripMenuItem.Text = "Sort y-dir";
+			this.sortYdirToolStripMenuItem.Click += new System.EventHandler(this.sortYdirToolStripMenuItem_Click);
 			// 
 			// btnClearDiagram
 			// 
@@ -126,6 +138,8 @@
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.groupBox3);
+			this.groupBox1.Controls.Add(this.groupBox2);
 			this.groupBox1.Controls.Add(this.listBoxCoordinates);
 			this.groupBox1.Location = new System.Drawing.Point(12, 375);
 			this.groupBox1.Name = "groupBox1";
@@ -142,11 +156,87 @@
 			this.listBoxCoordinates.Size = new System.Drawing.Size(120, 238);
 			this.listBoxCoordinates.TabIndex = 0;
 			// 
+			// labelNewXCoord
+			// 
+			this.labelNewXCoord.AutoSize = true;
+			this.labelNewXCoord.Location = new System.Drawing.Point(15, 25);
+			this.labelNewXCoord.Name = "labelNewXCoord";
+			this.labelNewXCoord.Size = new System.Drawing.Size(90, 13);
+			this.labelNewXCoord.TabIndex = 1;
+			this.labelNewXCoord.Text = "New x coordinate";
+			// 
+			// labelNewYCoord
+			// 
+			this.labelNewYCoord.AutoSize = true;
+			this.labelNewYCoord.Location = new System.Drawing.Point(15, 52);
+			this.labelNewYCoord.Name = "labelNewYCoord";
+			this.labelNewYCoord.Size = new System.Drawing.Size(90, 13);
+			this.labelNewYCoord.TabIndex = 2;
+			this.labelNewYCoord.Text = "New y coordinate";
+			// 
+			// textBoxNewXCoord
+			// 
+			this.textBoxNewXCoord.Location = new System.Drawing.Point(116, 22);
+			this.textBoxNewXCoord.Name = "textBoxNewXCoord";
+			this.textBoxNewXCoord.Size = new System.Drawing.Size(100, 20);
+			this.textBoxNewXCoord.TabIndex = 3;
+			// 
+			// textBoxNewYCoord
+			// 
+			this.textBoxNewYCoord.Location = new System.Drawing.Point(116, 49);
+			this.textBoxNewYCoord.Name = "textBoxNewYCoord";
+			this.textBoxNewYCoord.Size = new System.Drawing.Size(100, 20);
+			this.textBoxNewYCoord.TabIndex = 4;
+			// 
+			// buttonAddNewCoord
+			// 
+			this.buttonAddNewCoord.Location = new System.Drawing.Point(18, 75);
+			this.buttonAddNewCoord.Name = "buttonAddNewCoord";
+			this.buttonAddNewCoord.Size = new System.Drawing.Size(198, 34);
+			this.buttonAddNewCoord.TabIndex = 5;
+			this.buttonAddNewCoord.Text = "Add new coordinate";
+			this.buttonAddNewCoord.UseVisualStyleBackColor = true;
+			this.buttonAddNewCoord.Click += new System.EventHandler(this.buttonAddNewCoord_Click);
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.buttonAddNewCoord);
+			this.groupBox2.Controls.Add(this.textBoxNewYCoord);
+			this.groupBox2.Controls.Add(this.textBoxNewXCoord);
+			this.groupBox2.Controls.Add(this.labelNewYCoord);
+			this.groupBox2.Controls.Add(this.labelNewXCoord);
+			this.groupBox2.Location = new System.Drawing.Point(12, 33);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(237, 125);
+			this.groupBox2.TabIndex = 6;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Add new coordinate";
+			// 
+			// groupBox3
+			// 
+			this.groupBox3.Location = new System.Drawing.Point(12, 164);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(236, 86);
+			this.groupBox3.TabIndex = 7;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Modify coordinate";
+			// 
+			// buttonReDraw
+			// 
+			this.buttonReDraw.Location = new System.Drawing.Point(404, 658);
+			this.buttonReDraw.Name = "buttonReDraw";
+			this.buttonReDraw.Size = new System.Drawing.Size(189, 34);
+			this.buttonReDraw.TabIndex = 4;
+			this.buttonReDraw.Text = "ReDraw Diagram";
+			this.buttonReDraw.UseVisualStyleBackColor = true;
+			this.buttonReDraw.Click += new System.EventHandler(this.buttonReDraw_Click);
+			// 
 			// Diagram_Generator
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1085, 704);
+			this.Controls.Add(this.buttonReDraw);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.btnClearDiagram);
 			this.Controls.Add(this.diagramPanel);
@@ -157,6 +247,8 @@
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -176,6 +268,14 @@
 		private System.Windows.Forms.Button btnClearDiagram;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.ListBox listBoxCoordinates;
+		private System.Windows.Forms.GroupBox groupBox3;
+		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.Button buttonAddNewCoord;
+		private System.Windows.Forms.TextBox textBoxNewYCoord;
+		private System.Windows.Forms.TextBox textBoxNewXCoord;
+		private System.Windows.Forms.Label labelNewYCoord;
+		private System.Windows.Forms.Label labelNewXCoord;
+		private System.Windows.Forms.Button buttonReDraw;
 	}
 }
 

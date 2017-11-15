@@ -30,17 +30,17 @@ namespace Diagram_Generator
 			return base.Count > 1;
 		}
 
-		public float GetTotalRangeOfY()
+		private float GetTotalRangeOfY()
 		{
 			return Utility.GetDelta(GetGreatestY(), GetSmallestY());
 		}
 
-		public float GetTotalRangeOfX()
+		private float GetTotalRangeOfX()
 		{
 			return Utility.GetDelta(GetGreatestX(), GetSmallestX());
 		}
 
-		public float GetGreatestY()
+		private float GetGreatestY()
 		{
 			float greatest = base.GetAt(0).yCoord;
 			for (int i=0; i<base.Count; i++)
@@ -50,7 +50,7 @@ namespace Diagram_Generator
 			return greatest;
 		}
 
-		public float GetGreatestX()
+		private float GetGreatestX()
 		{
 			float greatest = base.GetAt(0).xCoord;
 			for (int i=0; i<base.Count; i++)
@@ -60,7 +60,7 @@ namespace Diagram_Generator
 			return greatest;
 		}
 
-		public float GetSmallestY()
+		private float GetSmallestY()
 		{
 			float smallest = base.GetAt(0).yCoord;
 			for (int i=0; i<base.Count; i++)
@@ -70,7 +70,7 @@ namespace Diagram_Generator
 			return smallest;
 		}
 
-		public float GetSmallestX()
+		private float GetSmallestX()
 		{
 			float smallest = base.GetAt(0).xCoord;
 			for(int i=0; i<base.Count; i++)
@@ -102,20 +102,25 @@ namespace Diagram_Generator
 
 		public int GetStartY()
 		{
-			return Utility.RoundDownToBase((int)GetSmallestY() - Utility.RoundDownToBase(GetIntervalY()));
+			
+			int startY = (int)GetSmallestY();
+			if(startY < 0) return Utility.RoundUpToBase((int)GetSmallestY() - Utility.RoundDownToBase(GetIntervalY()));
+			else return Utility.RoundDownToBase((int)GetSmallestY() - Utility.RoundDownToBase(GetIntervalY()));
 		}
 
-		public int GetEndY()
+		private int GetEndY()
 		{
 			return Utility.RoundUpToBase((int)GetGreatestY() + Utility.RoundDownToBase(GetIntervalY()));
 		}
 
 		public int GetStartX()
 		{
-			return Utility.RoundDownToBase((int)GetSmallestX() - Utility.RoundDownToBase(GetIntervalX()));
+			int startX = (int)GetSmallestX();
+			if(startX < 0) return Utility.RoundUpToBase((int)GetSmallestX() - Utility.RoundDownToBase(GetIntervalX()));
+			else return Utility.RoundDownToBase((int)GetSmallestX() - Utility.RoundDownToBase(GetIntervalX()));
 		}
 
-		public int GetEndX()
+		private int GetEndX()
 		{
 			return Utility.RoundUpToBase((int)GetGreatestX() + Utility.RoundUpToBase(GetIntervalX()));
 		}

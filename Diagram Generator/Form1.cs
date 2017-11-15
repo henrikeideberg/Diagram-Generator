@@ -23,8 +23,7 @@ namespace Diagram_Generator
 			//For testing
 			// - start with all positive coordinates
 			coordinates = new CoordinateManager();
-			//coordinates.SetList(CoordinatesGenerator.PositiveCoordinates());
-			coordinates.SetList(CoordinatesGenerator.NegativeCoordinates());
+			coordinates.SetList(CoordinatesGenerator.QuadrantTwoFour());
 
 			listBoxCoordinates.DataSource = null;
 			listBoxCoordinates.DataSource = coordinates.ToStringArray();
@@ -179,6 +178,52 @@ namespace Diagram_Generator
 			}
 			xmlImport.Dispose();
 			diagramPanel.Invalidate(); //How to repaint the panel?
+		}
+
+		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (Utility.AskUserIfSaveAnimalManagerToFile())
+			{
+				exportXMLToolStripMenuItem_Click(sender, e);
+			}
+			Application.Exit();
+		}
+
+		private void sortXdirToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			coordinates.Sort(new Coordinate.SortByXCoord());
+			listBoxCoordinates.DataSource = null;
+			listBoxCoordinates.DataSource = coordinates.ToStringArray();
+		}
+
+		private void sortYdirToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			coordinates.Sort(new Coordinate.SortByYCoord());
+			listBoxCoordinates.DataSource = null;
+			listBoxCoordinates.DataSource = coordinates.ToStringArray();
+		}
+
+		private void buttonAddNewCoord_Click(object sender, EventArgs e)
+		{
+			if(Utility.ValidateString(textBoxNewXCoord.Text) && Utility.ValidateString(textBoxNewYCoord.Text))
+			{
+				if(Utility.ConvertStringToFloat(textBoxNewXCoord.Text, out float newXCoord) &&
+				   Utility.ConvertStringToFloat(textBoxNewYCoord.Text, out float newYCoord))
+				{
+					coordinates.Add(new Coordinate
+					{
+						xCoord = newXCoord,
+						yCoord = newYCoord
+					});
+					listBoxCoordinates.DataSource = null;
+					listBoxCoordinates.DataSource = coordinates.ToStringArray();
+				}
+			}
+		}
+
+		private void buttonReDraw_Click(object sender, EventArgs e)
+		{
+			diagramPanel.Invalidate();
 		}
 	}
 }
