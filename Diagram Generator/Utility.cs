@@ -100,7 +100,7 @@ namespace Diagram_Generator
 			}
 		}
 
-		public static bool AskUserIfSaveAnimalManagerToFile()
+		public static bool AskUserIfSavToFile()
 		{
 			bool userRespone = false;
 			//Configure the messagebox
@@ -173,6 +173,58 @@ namespace Diagram_Generator
 				MessageBox.Show(error);
 			}
 			return result;
+		}
+
+		/// <summary>
+		/// Method to convert string to integer.
+		/// </summary>
+		/// <param name="input"></param>
+		/// <param name="output"></param>
+		public static bool ConvertStringToInteger(string input, out int output)
+		{
+			bool result = false;
+			output = 0;
+			try
+			{
+				output = Convert.ToInt32(input);
+				result = true;
+			}
+			catch (FormatException)
+			{
+				//Raise error if failure. The resulting output will be 0.
+				string error = String.Format("Unable to convert {0} to integer", input);
+				MessageBox.Show(error);
+			}
+			return result;
+		}
+
+		// <summary>
+		/// Method which configures and displays a messagebox to indicate succesful registration
+		/// </summary>
+		public static void DisplaySuccesfulMsgBox(string messageBoxText)
+		{
+			//Configure the message box
+			string caption = "Henrik Animal Motel";          //Sets the heading of the msgbox
+			MessageBoxButtons button = MessageBoxButtons.OK; //configures the button(s) of the msgbox
+			MessageBoxIcon icon = MessageBoxIcon.Information;//configures the icon to be displayed
+
+			//Display the messagebox
+			MessageBox.Show(messageBoxText, caption, button, icon);
+		}
+
+		/// <summary>
+		/// Method which configures and displays a messagebox to indicate an error
+		/// </summary>
+		/// <param name="errorString"></param>
+		public static void DisplayErrorMsgBox(string messageBoxText)
+		{
+			//Configure the message box
+			string caption = "Henrik Animal Motel - Error!";//Sets the heading of the msgbox
+			MessageBoxButtons button = MessageBoxButtons.OK;//configures the button(s) of the msgbox
+			MessageBoxIcon icon = MessageBoxIcon.Error;     //configures the icon to be displayed
+
+			//Display the messagebox
+			MessageBox.Show(messageBoxText, caption, button, icon);
 		}
 	}
 }

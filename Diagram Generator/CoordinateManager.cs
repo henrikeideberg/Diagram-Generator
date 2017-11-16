@@ -12,11 +12,11 @@ namespace Diagram_Generator
 	{
 		PointF[] coordinatesAsPoints;
 		int startX;
+		int startY;
 		int endX;
+		int endY;
 		float scalingfactorX;
 		float mX;
-		int startY;
-		int endY;
 		float scalingfactorY;
 		float mY;
 
@@ -102,9 +102,8 @@ namespace Diagram_Generator
 
 		public int GetStartY()
 		{
-			
-			int startY = (int)GetSmallestY();
-			if(startY < 0) return Utility.RoundUpToBase((int)GetSmallestY() - Utility.RoundDownToBase(GetIntervalY()));
+			int smallestY = (int)GetSmallestY();
+			if(smallestY < 0) return Utility.RoundUpToBase((int)GetSmallestY() - Utility.RoundDownToBase(GetIntervalY()));
 			else return Utility.RoundDownToBase((int)GetSmallestY() - Utility.RoundDownToBase(GetIntervalY()));
 		}
 
@@ -115,8 +114,8 @@ namespace Diagram_Generator
 
 		public int GetStartX()
 		{
-			int startX = (int)GetSmallestX();
-			if(startX < 0) return Utility.RoundUpToBase((int)GetSmallestX() - Utility.RoundDownToBase(GetIntervalX()));
+			int smallestX = (int)GetSmallestX();
+			if(smallestX < 0) return Utility.RoundUpToBase((int)GetSmallestX() - Utility.RoundDownToBase(GetIntervalX()));
 			else return Utility.RoundDownToBase((int)GetSmallestX() - Utility.RoundDownToBase(GetIntervalX()));
 		}
 
@@ -152,8 +151,6 @@ namespace Diagram_Generator
 			if (base.Count > 0)
 			{
 				//Calculate scalefactor and m for x
-				startX = GetStartX();
-				endX = GetEndX();
 				scalingfactorX = drawingAreaX / Utility.GetDelta(endX, startX);
 				float mStartX = offSetX - startX * scalingfactorX;
 				float mEndX = drawingAreaX + offSetX - endX * scalingfactorX;
@@ -166,8 +163,6 @@ namespace Diagram_Generator
 			if (base.Count > 0)
 			{
 				//Calculate scalefactor and m for y
-				startY = GetStartY();
-				endY = GetEndY();
 				scalingfactorY = drawingAreaY / Utility.GetDelta(endY, startY);
 				float mStartY = offSetY - startY * scalingfactorY;
 				float mEndY = drawingAreaY + offSetY - endY * scalingfactorY;
@@ -184,10 +179,10 @@ namespace Diagram_Generator
 			return coordinatesAsPoints;
 		}
 
-		public PointF GetCoordinatesForOrigo(float drawingAreaX,
-											 float drawingAreaY,
-											 int offSetX,
-											 int offSetY)
+		private PointF GetOrigo(float drawingAreaX,
+							    float drawingAreaY,
+								int offSetX,
+								int offSetY)
 		{
 			PointF origo;
 			CalculateCoordinatesAsPoints(drawingAreaX, drawingAreaY, offSetX, offSetY);
@@ -203,10 +198,30 @@ namespace Diagram_Generator
 			return origo;
 		}
 
+		public PointF GetCoordinatesForOrigo(float drawingAreaX,
+											 float drawingAreaY,
+											 int offSetX,
+											 int offSetY)
+		{
+			return GetOrigo(drawingAreaX, drawingAreaY, offSetX, offSetY);
+		}
+
+		public float GetXIntervalAsPoints(float drawingAreaX, int offSetX, int intervalX)
+		{
+			CalculateXCoordinatesAsPoints(drawingAreaX, offSetX);
+			return intervalX * scalingfactorX;
+		}
+
 		public float GetXIntervalAsPoints(float drawingAreaX, int offSetX)
 		{
 			CalculateXCoordinatesAsPoints(drawingAreaX, offSetX);
 			return GetIntervalX() * scalingfactorX;
+		}
+
+		public float GetYIntervalAsPoints(float drawingAreaY, int offSetY, int intervalY)
+		{
+			CalculateYCoordinatesAsPoints(drawingAreaY, offSetY);
+			return intervalY * scalingfactorY;
 		}
 
 		public float GetYIntervalAsPoints(float drawingAreaY, int offSetY)
@@ -215,54 +230,21 @@ namespace Diagram_Generator
 			return GetIntervalY() * scalingfactorY;
 		}
 
+		public void SetStartAndEnd()
+		{
+			this.startX = GetStartX();
+			this.startY = GetStartY();
+			this.endX = GetEndX();
+			this.endY = GetEndY();
+		}
 
-		/*
-		string msgstring;
-		msgstring = string.Format(
-			"drawingAreaForX: {0}\n" +
-			"drawingStartX: {1}\n" +
-			"drawingEndX: {2}\n" +
-			"rangeOfX: {3}\n" +
-			"scalefactorX: {4}\n" +
-			"smallestX: {5}\n" +
-			"greatestX: {6}\n" +
-			"intervalX: {7}\n" +
-			"startX: {8}\n" +
-			"endX: {9}",
-			drawingAreaForX,
-			offSetX,
-			offSetX + drawingAreaForX,
-			coordinates.GetTotalRangeOfX(),
-			scaleFactorX,
-			coordinates.GetSmallestX(),
-			coordinates.GetGreatestX(),
-			coordinates.GetIntervalX(),
-			coordinates.GetStartX(),
-			coordinates.GetEndX());
-		MessageBox.Show(msgstring, "Title", MessageBoxButtons.OK);
-
-		msgstring = string.Format(
-			"drawingAreaForY: {0}\n" +
-			"drawingStartY: {1}\n" +
-			"drawingEndY: {2}\n" +
-			"rangeOfY: {3}\n" +
-			"scalefactorY: {4}\n" +
-			"smallestY: {5}\n" +
-			"greatestY: {6}\n" +
-			"intervalY: {7}\n" +
-			"startY: {8}\n" +
-			"endY: {9}",
-			drawingAreaForY,
-			offSetY,
-			offSetY + drawingAreaForY,
-			coordinates.GetTotalRangeOfY(),
-			scaleFactorY,
-			coordinates.GetSmallestY(),
-			coordinates.GetGreatestY(),
-			coordinates.GetIntervalY(),
-			coordinates.GetStartY(),
-			coordinates.GetEndY());
-		MessageBox.Show(msgstring, "Title", MessageBoxButtons.OK);
-		*/
+		public void SetStartAndEnd(int startXUser, int startYUser,
+								   int endXUser, int endYUser)
+		{
+			this.startX = startXUser;
+			this.startY = startYUser;
+			this.endX = endXUser;
+			this.endY = endYUser;
+		}
 	}
 }

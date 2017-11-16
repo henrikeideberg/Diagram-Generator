@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfCoordinate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Coordinate>
+    <xCoord>1</xCoord>
+    <yCoord>-205</yCoord>
+  </Coordinate>
+  <Coordinate>
+    <xCoord>3</xCoord>
+    <yCoord>-315</yCoord>
+  </Coordinate>
+  <Coordinate>
+    <xCoord>4</xCoord>
+    <yCoord>-273</yCoord>
+  </Coordinate>
+  <Coordinate>
+    <xCoord>7</xCoord>
+    <yCoord>528</yCoord>
+  </Coordinate>
+  <Coordinate>
+    <xCoord>9</xCoord>
+    <yCoord>544</yCoord>
+  </Coordinate>
+  <Coordinate>
+    <xCoord>11.5</xCoord>
+    <yCoord>469</yCoord>
+  </Coordinate>
+</ArrayOfCoordinate>

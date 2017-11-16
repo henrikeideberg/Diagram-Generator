@@ -152,6 +152,52 @@ namespace Diagram_Generator
 			return coordinates;
 		}
 
+		public static List<Coordinate> QuadrantOneTwoThreeFour()
+		{
+			List<Coordinate> coordinates = new List<Coordinate>();
+			coordinates.Add(new Coordinate
+			{
+				xCoord = 13,
+				yCoord = 196
+			});
+			coordinates.Add(new Coordinate
+			{
+				xCoord = (float)11.5,
+				yCoord = 74
+			});
+			coordinates.Add(new Coordinate
+			{
+				xCoord = 3,
+				yCoord = -315
+			});
+			coordinates.Add(new Coordinate
+			{
+				xCoord = 1,
+				yCoord = -205
+			});
+			coordinates.Add(new Coordinate
+			{
+				xCoord = -4,
+				yCoord = -34
+			});
+			coordinates.Add(new Coordinate
+			{
+				xCoord = -7,
+				yCoord = -100
+			});
+			coordinates.Add(new Coordinate
+			{
+				xCoord = -9,
+				yCoord = 544
+			});
+			coordinates.Add(new Coordinate
+			{
+				xCoord = -11,
+				yCoord = 469
+			});
+			return coordinates;
+		}
+
 		public static List<Coordinate> QuadrantOneTwoThree()
 		{
 			List<Coordinate> coordinates = new List<Coordinate>();

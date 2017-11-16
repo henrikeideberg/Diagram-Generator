@@ -37,20 +37,35 @@
 			this.dataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.sortXdirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.sortYdirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.btnClearDiagram = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.listBoxCoordinates = new System.Windows.Forms.ListBox();
-			this.labelNewXCoord = new System.Windows.Forms.Label();
-			this.labelNewYCoord = new System.Windows.Forms.Label();
-			this.textBoxNewXCoord = new System.Windows.Forms.TextBox();
-			this.textBoxNewYCoord = new System.Windows.Forms.TextBox();
-			this.buttonAddNewCoord = new System.Windows.Forms.Button();
-			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.buttonAddNewCoord = new System.Windows.Forms.Button();
+			this.textBoxNewYCoord = new System.Windows.Forms.TextBox();
+			this.textBoxNewXCoord = new System.Windows.Forms.TextBox();
+			this.labelNewYCoord = new System.Windows.Forms.Label();
+			this.labelNewXCoord = new System.Windows.Forms.Label();
+			this.listBoxCoordinates = new System.Windows.Forms.ListBox();
 			this.buttonReDraw = new System.Windows.Forms.Button();
+			this.labelDiagramTitle = new System.Windows.Forms.Label();
+			this.textBoxDiagramTitle = new System.Windows.Forms.TextBox();
+			this.labelDivY = new System.Windows.Forms.Label();
+			this.textBoxStartY = new System.Windows.Forms.TextBox();
+			this.textBoxStartX = new System.Windows.Forms.TextBox();
+			this.labelDivX = new System.Windows.Forms.Label();
+			this.labelStartValue = new System.Windows.Forms.Label();
+			this.labelInterval = new System.Windows.Forms.Label();
+			this.textBoxIntervalX = new System.Windows.Forms.TextBox();
+			this.textBoxIntervalY = new System.Windows.Forms.TextBox();
+			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.checkBoxManualSettings = new System.Windows.Forms.CheckBox();
+			this.labelEndValue = new System.Windows.Forms.Label();
+			this.textBoxEndX = new System.Windows.Forms.TextBox();
+			this.textBoxEndY = new System.Windows.Forms.TextBox();
 			this.menuStrip1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
+			this.groupBox4.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// diagramPanel
@@ -127,15 +142,6 @@
 			this.sortYdirToolStripMenuItem.Text = "Sort y-dir";
 			this.sortYdirToolStripMenuItem.Click += new System.EventHandler(this.sortYdirToolStripMenuItem_Click);
 			// 
-			// btnClearDiagram
-			// 
-			this.btnClearDiagram.Location = new System.Drawing.Point(884, 658);
-			this.btnClearDiagram.Name = "btnClearDiagram";
-			this.btnClearDiagram.Size = new System.Drawing.Size(189, 34);
-			this.btnClearDiagram.TabIndex = 2;
-			this.btnClearDiagram.Text = "Clear Diagram";
-			this.btnClearDiagram.UseVisualStyleBackColor = true;
-			// 
 			// groupBox1
 			// 
 			this.groupBox1.Controls.Add(this.groupBox3);
@@ -148,55 +154,14 @@
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Coordinates";
 			// 
-			// listBoxCoordinates
+			// groupBox3
 			// 
-			this.listBoxCoordinates.FormattingEnabled = true;
-			this.listBoxCoordinates.Location = new System.Drawing.Point(260, 13);
-			this.listBoxCoordinates.Name = "listBoxCoordinates";
-			this.listBoxCoordinates.Size = new System.Drawing.Size(120, 238);
-			this.listBoxCoordinates.TabIndex = 0;
-			// 
-			// labelNewXCoord
-			// 
-			this.labelNewXCoord.AutoSize = true;
-			this.labelNewXCoord.Location = new System.Drawing.Point(15, 25);
-			this.labelNewXCoord.Name = "labelNewXCoord";
-			this.labelNewXCoord.Size = new System.Drawing.Size(90, 13);
-			this.labelNewXCoord.TabIndex = 1;
-			this.labelNewXCoord.Text = "New x coordinate";
-			// 
-			// labelNewYCoord
-			// 
-			this.labelNewYCoord.AutoSize = true;
-			this.labelNewYCoord.Location = new System.Drawing.Point(15, 52);
-			this.labelNewYCoord.Name = "labelNewYCoord";
-			this.labelNewYCoord.Size = new System.Drawing.Size(90, 13);
-			this.labelNewYCoord.TabIndex = 2;
-			this.labelNewYCoord.Text = "New y coordinate";
-			// 
-			// textBoxNewXCoord
-			// 
-			this.textBoxNewXCoord.Location = new System.Drawing.Point(116, 22);
-			this.textBoxNewXCoord.Name = "textBoxNewXCoord";
-			this.textBoxNewXCoord.Size = new System.Drawing.Size(100, 20);
-			this.textBoxNewXCoord.TabIndex = 3;
-			// 
-			// textBoxNewYCoord
-			// 
-			this.textBoxNewYCoord.Location = new System.Drawing.Point(116, 49);
-			this.textBoxNewYCoord.Name = "textBoxNewYCoord";
-			this.textBoxNewYCoord.Size = new System.Drawing.Size(100, 20);
-			this.textBoxNewYCoord.TabIndex = 4;
-			// 
-			// buttonAddNewCoord
-			// 
-			this.buttonAddNewCoord.Location = new System.Drawing.Point(18, 75);
-			this.buttonAddNewCoord.Name = "buttonAddNewCoord";
-			this.buttonAddNewCoord.Size = new System.Drawing.Size(198, 34);
-			this.buttonAddNewCoord.TabIndex = 5;
-			this.buttonAddNewCoord.Text = "Add new coordinate";
-			this.buttonAddNewCoord.UseVisualStyleBackColor = true;
-			this.buttonAddNewCoord.Click += new System.EventHandler(this.buttonAddNewCoord_Click);
+			this.groupBox3.Location = new System.Drawing.Point(12, 164);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(236, 86);
+			this.groupBox3.TabIndex = 7;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Modify coordinate";
 			// 
 			// groupBox2
 			// 
@@ -212,33 +177,210 @@
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Add new coordinate";
 			// 
-			// groupBox3
+			// buttonAddNewCoord
 			// 
-			this.groupBox3.Location = new System.Drawing.Point(12, 164);
-			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(236, 86);
-			this.groupBox3.TabIndex = 7;
-			this.groupBox3.TabStop = false;
-			this.groupBox3.Text = "Modify coordinate";
+			this.buttonAddNewCoord.Location = new System.Drawing.Point(18, 75);
+			this.buttonAddNewCoord.Name = "buttonAddNewCoord";
+			this.buttonAddNewCoord.Size = new System.Drawing.Size(198, 34);
+			this.buttonAddNewCoord.TabIndex = 5;
+			this.buttonAddNewCoord.Text = "Add new coordinate";
+			this.buttonAddNewCoord.UseVisualStyleBackColor = true;
+			this.buttonAddNewCoord.Click += new System.EventHandler(this.buttonAddNewCoord_Click);
+			// 
+			// textBoxNewYCoord
+			// 
+			this.textBoxNewYCoord.Location = new System.Drawing.Point(116, 49);
+			this.textBoxNewYCoord.Name = "textBoxNewYCoord";
+			this.textBoxNewYCoord.Size = new System.Drawing.Size(100, 20);
+			this.textBoxNewYCoord.TabIndex = 4;
+			// 
+			// textBoxNewXCoord
+			// 
+			this.textBoxNewXCoord.Location = new System.Drawing.Point(116, 22);
+			this.textBoxNewXCoord.Name = "textBoxNewXCoord";
+			this.textBoxNewXCoord.Size = new System.Drawing.Size(100, 20);
+			this.textBoxNewXCoord.TabIndex = 3;
+			// 
+			// labelNewYCoord
+			// 
+			this.labelNewYCoord.AutoSize = true;
+			this.labelNewYCoord.Location = new System.Drawing.Point(15, 52);
+			this.labelNewYCoord.Name = "labelNewYCoord";
+			this.labelNewYCoord.Size = new System.Drawing.Size(90, 13);
+			this.labelNewYCoord.TabIndex = 2;
+			this.labelNewYCoord.Text = "New y coordinate";
+			// 
+			// labelNewXCoord
+			// 
+			this.labelNewXCoord.AutoSize = true;
+			this.labelNewXCoord.Location = new System.Drawing.Point(15, 25);
+			this.labelNewXCoord.Name = "labelNewXCoord";
+			this.labelNewXCoord.Size = new System.Drawing.Size(90, 13);
+			this.labelNewXCoord.TabIndex = 1;
+			this.labelNewXCoord.Text = "New x coordinate";
+			// 
+			// listBoxCoordinates
+			// 
+			this.listBoxCoordinates.FormattingEnabled = true;
+			this.listBoxCoordinates.Location = new System.Drawing.Point(260, 13);
+			this.listBoxCoordinates.Name = "listBoxCoordinates";
+			this.listBoxCoordinates.Size = new System.Drawing.Size(120, 238);
+			this.listBoxCoordinates.TabIndex = 0;
 			// 
 			// buttonReDraw
 			// 
-			this.buttonReDraw.Location = new System.Drawing.Point(404, 658);
+			this.buttonReDraw.Location = new System.Drawing.Point(115, 316);
 			this.buttonReDraw.Name = "buttonReDraw";
-			this.buttonReDraw.Size = new System.Drawing.Size(189, 34);
+			this.buttonReDraw.Size = new System.Drawing.Size(150, 34);
 			this.buttonReDraw.TabIndex = 4;
-			this.buttonReDraw.Text = "ReDraw Diagram";
+			this.buttonReDraw.Text = "(Re)Draw Diagram";
 			this.buttonReDraw.UseVisualStyleBackColor = true;
 			this.buttonReDraw.Click += new System.EventHandler(this.buttonReDraw_Click);
+			// 
+			// labelDiagramTitle
+			// 
+			this.labelDiagramTitle.AutoSize = true;
+			this.labelDiagramTitle.Location = new System.Drawing.Point(27, 38);
+			this.labelDiagramTitle.Name = "labelDiagramTitle";
+			this.labelDiagramTitle.Size = new System.Drawing.Size(65, 13);
+			this.labelDiagramTitle.TabIndex = 5;
+			this.labelDiagramTitle.Text = "Diagram title";
+			// 
+			// textBoxDiagramTitle
+			// 
+			this.textBoxDiagramTitle.Location = new System.Drawing.Point(103, 35);
+			this.textBoxDiagramTitle.Name = "textBoxDiagramTitle";
+			this.textBoxDiagramTitle.Size = new System.Drawing.Size(252, 20);
+			this.textBoxDiagramTitle.TabIndex = 6;
+			// 
+			// labelDivY
+			// 
+			this.labelDivY.AutoSize = true;
+			this.labelDivY.Location = new System.Drawing.Point(284, 67);
+			this.labelDivY.Name = "labelDivY";
+			this.labelDivY.Size = new System.Drawing.Size(33, 13);
+			this.labelDivY.TabIndex = 7;
+			this.labelDivY.Text = "y-axis";
+			// 
+			// textBoxStartY
+			// 
+			this.textBoxStartY.Location = new System.Drawing.Point(255, 83);
+			this.textBoxStartY.Name = "textBoxStartY";
+			this.textBoxStartY.Size = new System.Drawing.Size(100, 20);
+			this.textBoxStartY.TabIndex = 8;
+			// 
+			// textBoxStartX
+			// 
+			this.textBoxStartX.Location = new System.Drawing.Point(103, 83);
+			this.textBoxStartX.Name = "textBoxStartX";
+			this.textBoxStartX.Size = new System.Drawing.Size(100, 20);
+			this.textBoxStartX.TabIndex = 9;
+			// 
+			// labelDivX
+			// 
+			this.labelDivX.AutoSize = true;
+			this.labelDivX.Location = new System.Drawing.Point(131, 67);
+			this.labelDivX.Name = "labelDivX";
+			this.labelDivX.Size = new System.Drawing.Size(33, 13);
+			this.labelDivX.TabIndex = 10;
+			this.labelDivX.Text = "x-axis";
+			// 
+			// labelStartValue
+			// 
+			this.labelStartValue.AutoSize = true;
+			this.labelStartValue.Location = new System.Drawing.Point(34, 86);
+			this.labelStartValue.Name = "labelStartValue";
+			this.labelStartValue.Size = new System.Drawing.Size(58, 13);
+			this.labelStartValue.TabIndex = 11;
+			this.labelStartValue.Text = "Start value";
+			// 
+			// labelInterval
+			// 
+			this.labelInterval.AutoSize = true;
+			this.labelInterval.Location = new System.Drawing.Point(21, 152);
+			this.labelInterval.Name = "labelInterval";
+			this.labelInterval.Size = new System.Drawing.Size(71, 13);
+			this.labelInterval.TabIndex = 12;
+			this.labelInterval.Text = "Interval value";
+			// 
+			// textBoxIntervalX
+			// 
+			this.textBoxIntervalX.Location = new System.Drawing.Point(103, 149);
+			this.textBoxIntervalX.Name = "textBoxIntervalX";
+			this.textBoxIntervalX.Size = new System.Drawing.Size(100, 20);
+			this.textBoxIntervalX.TabIndex = 13;
+			// 
+			// textBoxIntervalY
+			// 
+			this.textBoxIntervalY.Location = new System.Drawing.Point(255, 149);
+			this.textBoxIntervalY.Name = "textBoxIntervalY";
+			this.textBoxIntervalY.Size = new System.Drawing.Size(100, 20);
+			this.textBoxIntervalY.TabIndex = 14;
+			// 
+			// groupBox4
+			// 
+			this.groupBox4.Controls.Add(this.labelEndValue);
+			this.groupBox4.Controls.Add(this.textBoxEndX);
+			this.groupBox4.Controls.Add(this.textBoxEndY);
+			this.groupBox4.Controls.Add(this.checkBoxManualSettings);
+			this.groupBox4.Controls.Add(this.textBoxIntervalY);
+			this.groupBox4.Controls.Add(this.textBoxIntervalX);
+			this.groupBox4.Controls.Add(this.labelInterval);
+			this.groupBox4.Controls.Add(this.labelStartValue);
+			this.groupBox4.Controls.Add(this.labelDivX);
+			this.groupBox4.Controls.Add(this.textBoxStartX);
+			this.groupBox4.Controls.Add(this.textBoxStartY);
+			this.groupBox4.Controls.Add(this.labelDivY);
+			this.groupBox4.Controls.Add(this.textBoxDiagramTitle);
+			this.groupBox4.Controls.Add(this.labelDiagramTitle);
+			this.groupBox4.Location = new System.Drawing.Point(12, 63);
+			this.groupBox4.Name = "groupBox4";
+			this.groupBox4.Size = new System.Drawing.Size(380, 222);
+			this.groupBox4.TabIndex = 16;
+			this.groupBox4.TabStop = false;
+			this.groupBox4.Text = "Settings";
+			// 
+			// checkBoxManualSettings
+			// 
+			this.checkBoxManualSettings.AutoSize = true;
+			this.checkBoxManualSettings.Location = new System.Drawing.Point(103, 187);
+			this.checkBoxManualSettings.Name = "checkBoxManualSettings";
+			this.checkBoxManualSettings.Size = new System.Drawing.Size(121, 17);
+			this.checkBoxManualSettings.TabIndex = 17;
+			this.checkBoxManualSettings.Text = "Use manual settings";
+			this.checkBoxManualSettings.UseVisualStyleBackColor = true;
+			// 
+			// labelEndValue
+			// 
+			this.labelEndValue.AutoSize = true;
+			this.labelEndValue.Location = new System.Drawing.Point(34, 112);
+			this.labelEndValue.Name = "labelEndValue";
+			this.labelEndValue.Size = new System.Drawing.Size(55, 13);
+			this.labelEndValue.TabIndex = 20;
+			this.labelEndValue.Text = "End value";
+			// 
+			// textBoxEndX
+			// 
+			this.textBoxEndX.Location = new System.Drawing.Point(103, 109);
+			this.textBoxEndX.Name = "textBoxEndX";
+			this.textBoxEndX.Size = new System.Drawing.Size(100, 20);
+			this.textBoxEndX.TabIndex = 19;
+			// 
+			// textBoxEndY
+			// 
+			this.textBoxEndY.Location = new System.Drawing.Point(255, 109);
+			this.textBoxEndY.Name = "textBoxEndY";
+			this.textBoxEndY.Size = new System.Drawing.Size(100, 20);
+			this.textBoxEndY.TabIndex = 18;
 			// 
 			// Diagram_Generator
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1085, 704);
+			this.Controls.Add(this.groupBox4);
 			this.Controls.Add(this.buttonReDraw);
 			this.Controls.Add(this.groupBox1);
-			this.Controls.Add(this.btnClearDiagram);
 			this.Controls.Add(this.diagramPanel);
 			this.Controls.Add(this.menuStrip1);
 			this.MainMenuStrip = this.menuStrip1;
@@ -249,6 +391,8 @@
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
+			this.groupBox4.ResumeLayout(false);
+			this.groupBox4.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -265,7 +409,6 @@
 		private System.Windows.Forms.ToolStripMenuItem dataToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem sortXdirToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem sortYdirToolStripMenuItem;
-		private System.Windows.Forms.Button btnClearDiagram;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.ListBox listBoxCoordinates;
 		private System.Windows.Forms.GroupBox groupBox3;
@@ -276,6 +419,21 @@
 		private System.Windows.Forms.Label labelNewYCoord;
 		private System.Windows.Forms.Label labelNewXCoord;
 		private System.Windows.Forms.Button buttonReDraw;
+		private System.Windows.Forms.Label labelDiagramTitle;
+		private System.Windows.Forms.TextBox textBoxDiagramTitle;
+		private System.Windows.Forms.Label labelDivY;
+		private System.Windows.Forms.TextBox textBoxStartY;
+		private System.Windows.Forms.TextBox textBoxStartX;
+		private System.Windows.Forms.Label labelDivX;
+		private System.Windows.Forms.Label labelStartValue;
+		private System.Windows.Forms.Label labelInterval;
+		private System.Windows.Forms.TextBox textBoxIntervalX;
+		private System.Windows.Forms.TextBox textBoxIntervalY;
+		private System.Windows.Forms.GroupBox groupBox4;
+		private System.Windows.Forms.CheckBox checkBoxManualSettings;
+		private System.Windows.Forms.Label labelEndValue;
+		private System.Windows.Forms.TextBox textBoxEndX;
+		private System.Windows.Forms.TextBox textBoxEndY;
 	}
 }
 

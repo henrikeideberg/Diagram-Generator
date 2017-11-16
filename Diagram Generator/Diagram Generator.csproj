@@ -84,5 +84,22 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="DemoXMLs\AllNegative.xml" />
+    <Content Include="DemoXMLs\AllPositive.xml" />
+    <Content Include="DemoXMLs\NegativeXPositiveY.xml" />
+    <Content Include="DemoXMLs\NegativeYPositiveX.xml" />
+    <Content Include="DemoXMLs\QuadrantOneFour.xml" />
+    <Content Include="DemoXMLs\QuadrantOneThree.xml" />
+    <Content Include="DemoXMLs\QuadrantOneThreeFour.xml" />
+    <Content Include="DemoXMLs\QuadrantOneTwo.xml" />
+    <Content Include="DemoXMLs\QuadrantOneTwoFour.xml" />
+    <Content Include="DemoXMLs\QuadrantOneTwoThree.xml" />
+    <Content Include="DemoXMLs\QuadrantOneTwoThreeFour.xml" />
+    <Content Include="DemoXMLs\QuadrantThreeFour.xml" />
+    <Content Include="DemoXMLs\QuadrantTwoFour.xml" />
+    <Content Include="DemoXMLs\QuadrantTwoThree.xml" />
+    <Content Include="DemoXMLs\QuadrantTwoThreeFour.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
