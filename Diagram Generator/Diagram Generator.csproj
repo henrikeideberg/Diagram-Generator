@@ -48,7 +48,6 @@
     <Compile Include="Coordinate.cs" />
     <Compile Include="CoordinateManager.cs" />
     <Compile Include="CoordinatesGenerator.cs" />
-    <Compile Include="EnumTypes.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

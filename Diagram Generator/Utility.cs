@@ -7,8 +7,19 @@ namespace Diagram_Generator
 {
 	public class Utility
 	{
+		/// <summary>
+		/// Method to round down to 'base'. e.g.
+		///  - 544 will be rounded down to 500.
+		///  - 13 will be rounded down to 10.
+		///  Values smaller than 10 will be untouched.
+		///  Method does not evaluate negative numbers.
+		/// </summary>
+		/// <param name="number"></param>
+		/// <returns></returns>
 		public static int RoundDownToBase(int number)
 		{
+			//If negative - make positive
+			//If positive - keep positive
 			int negative = 1;
 			if (number < 0) negative = -1;
 			number = number * negative;
@@ -19,11 +30,23 @@ namespace Diagram_Generator
 				number = number - (number % mod);
 				mod = mod * 10;
 			}
+			//return rounded down number with original sign (+/-)
 			return number * negative;
 		}
 
+		/// <summary>
+		/// Method to round up to 'base'. e.g.
+		///  - 544 will be rounded up to 600.
+		///  - 13 will be rounded up to 20.
+		///  Values smaller than 10 will be untouched.
+		///  Method does not evaluate negative numbers.
+		/// </summary>
+		/// <param name="number"></param>
+		/// <returns></returns>
 		public static int RoundUpToBase(int number)
 		{
+			//If negative - make positive
+			//If positive - keep positive
 			int negative = 1;
 			if (number < 0) negative = -1;
 			number = number * negative;
@@ -34,9 +57,16 @@ namespace Diagram_Generator
 				number = number + (mod - (number % mod));
 				mod = mod * 10;
 			}
+			//return rounded up number with original sign (+/-)
 			return number * negative;
 		}
 
+		/// <summary>
+		/// Get delta between two numbers,
+		/// </summary>
+		/// <param name="nrOne"></param>
+		/// <param name="nrTwo"></param>
+		/// <returns></returns>
 		public static float GetDelta(float nrOne, float nrTwo)
 		{
 			return Math.Abs(nrOne - nrTwo);
@@ -100,12 +130,17 @@ namespace Diagram_Generator
 			}
 		}
 
-		public static bool AskUserIfSavToFile()
+		/// <summary>
+		/// Method to ask user a Yes/No question.
+		/// Return the response (true for Yes and false for No).
+		/// </summary>
+		/// <param name="message"></param>
+		/// <param name="caption"></param>
+		/// <returns></returns>
+		public static bool AskUserYesNo(string message, string caption)
 		{
 			bool userRespone = false;
 			//Configure the messagebox
-			string message = "Save the coordinates?";
-			string caption = "Save?";
 			MessageBoxButtons buttons = MessageBoxButtons.YesNo;
 			DialogResult result;
 
@@ -115,8 +150,6 @@ namespace Diagram_Generator
 			if (result == DialogResult.Yes)
 			{
 				userRespone = true;
-				//If user wants to save the data - do it
-
 			}
 			return userRespone;
 		}
@@ -204,7 +237,7 @@ namespace Diagram_Generator
 		public static void DisplaySuccesfulMsgBox(string messageBoxText)
 		{
 			//Configure the message box
-			string caption = "Henrik Animal Motel";          //Sets the heading of the msgbox
+			string caption = "Diagram Generator";          //Sets the heading of the msgbox
 			MessageBoxButtons button = MessageBoxButtons.OK; //configures the button(s) of the msgbox
 			MessageBoxIcon icon = MessageBoxIcon.Information;//configures the icon to be displayed
 
@@ -219,7 +252,7 @@ namespace Diagram_Generator
 		public static void DisplayErrorMsgBox(string messageBoxText)
 		{
 			//Configure the message box
-			string caption = "Henrik Animal Motel - Error!";//Sets the heading of the msgbox
+			string caption = "Diagram Generator";//Sets the heading of the msgbox
 			MessageBoxButtons button = MessageBoxButtons.OK;//configures the button(s) of the msgbox
 			MessageBoxIcon icon = MessageBoxIcon.Error;     //configures the icon to be displayed
 

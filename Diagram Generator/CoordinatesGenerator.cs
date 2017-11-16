@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Diagram_Generator
 {
+	/// <summary>
+	/// Class to generate list of coordinates.
+	/// Only used during development for testing purposes.
+	/// </summary>
 	public class CoordinatesGenerator
 	{
 		public static List<Coordinate> PositiveCoordinates()

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Diagram_Generator
 {
+	/// <summary>
+	/// Class which represents a coordinate in a diagram/graph.
+	/// </summary>
 	public class Coordinate : IComparable
 	{
 		public float xCoord { get; set; }
@@ -35,6 +38,11 @@ namespace Diagram_Generator
 				return (0);
 		}
 
+		/// <summary>
+		/// Method to compare xCoord of one coordinate against another.
+		/// Useful when coordinates are in a list and one wants to sort the list
+		/// based on the x-coordnate.
+		/// </summary>
 		public class SortByXCoord : IComparer<Coordinate>
 		{
 			public int Compare(Coordinate coordinate1, Coordinate coordinate2)
@@ -43,6 +51,11 @@ namespace Diagram_Generator
 			}
 		}
 
+		/// <summary>
+		/// Method to compare yCoord of one coordinate against another.
+		/// Useful when coordinates are in a list and one wants to sort the list
+		/// based on the y-coordinate.
+		/// </summary>
 		public class SortByYCoord : IComparer<Coordinate>
 		{
 			public int Compare(Coordinate coordinate1, Coordinate coordinate2)

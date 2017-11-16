@@ -12,21 +12,29 @@ namespace Diagram_Generator
 {
 	public partial class Diagram_Generator : Form
 	{
-		private CoordinateManager coordinates;
+		private CoordinateManager coordinates;	//Manages the coordinates
+		int offSetX = 50; //to not have graph at edges of panel
+		int offSetY = 50; //to not have graph at edges of panel
 		public Diagram_Generator()
 		{
 			InitializeComponent();
 
-			//Create default paint event handler
+			//Create default paint event handler for the diagramPanel
 			diagramPanel.Paint += new PaintEventHandler(diagramPanel_Paint);
+			//Create a MouseDown event hhandler for the diagramPanel
 			diagramPanel.MouseDown += new MouseEventHandler(diagramPanel_MouseDown);
 
+			//Start up a new coordinateManager
 			coordinates = new CoordinateManager();
 			coordinates.SetList(CoordinatesGenerator.QuadrantOneTwoThreeFour()); //To start with something
 
+			//Show the coordinates in the listbox listBoxCoordinates
 			UpdatelistBoxCoordinates();
 		}
 
+		/// <summary>
+		/// Refresh the data in the listbox.
+		/// </summary>
 		private void UpdatelistBoxCoordinates()
 		{
 			listBoxCoordinates.DataSource = null;
@@ -34,6 +42,7 @@ namespace Diagram_Generator
 		}
 
 		/// <summary>
+		/// Method to add a new coordinate to the data set and the graph, by clicking in the diagramPanel.
 		/// https://msdn.microsoft.com/en-us/library/system.windows.forms.control.mousedown(v=vs.110).aspx
 		/// https://www.daniweb.com/programming/software-development/threads/258894/identify-mouseclick-location-in-panel
 		/// </summary>
@@ -41,12 +50,32 @@ namespace Diagram_Generator
 		/// <param name="e"></param>
 		private void diagramPanel_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
 		{
-			MessageBox.Show("WOW");
+			var p = sender as Panel;
+			if ( e.X >= offSetX &&
+				 e.X <= p.Width-offSetX &&
+				 e.Y >= offSetY &&
+				 e.Y <= p.Height-offSetY)
+			{
+				Coordinate coordinate = coordinates.GetCoordinateFromPoints(e.X, p.Height - e.Y);
+				string insertPoint = String.Format("Insert new coordinates at ({0},{1})", (int)coordinate.xCoord, (int)coordinate.yCoord);
+				if(Utility.AskUserYesNo(insertPoint, "Add Coordinate?"))
+				{
+					coordinates.Add(coordinate);
+					UpdatelistBoxCoordinates();
+					diagramPanel.Invalidate();
+				}
+			}
+
 		}
 
+		/// <summary>
+		/// Method to repaint the diagramPanel.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void diagramPanel_Paint(object sender, PaintEventArgs e)
 		{
-			var p = sender as Panel;
+			var p = sender as Panel; //diagramPanel
 			//Use below as reference when drawing
 			//p.Height
 			//p.Width
@@ -59,6 +88,8 @@ namespace Diagram_Generator
 			Font titleFont;
 			SizeF titleSize;
 			if (Utility.ValidateString(textBoxDiagramTitle.Text, 1)) title = textBoxDiagramTitle.Text;
+			//Do a loop to fit the title within the panels width.
+			//If the title-width exeeds the panel-width, reduce the fontsize and try again.
 			do
 			{
 				titleFont = null;
@@ -74,7 +105,7 @@ namespace Diagram_Generator
 				}
 			} while (titleSize.Width > p.Width);
 
-			Point titlePoint = new Point
+			Point titlePoint = new Point //Get the coordinates to where we shall draw our title.
 			{
 				X = (p.Width / 2) - (int)(titleSize.Width / 2),
 				Y = 0
@@ -82,13 +113,12 @@ namespace Diagram_Generator
 			g.DrawString(title, titleFont, Brushes.Blue, titlePoint);
 			titleFont.Dispose();
 
-			//If there is more than one coordinate draw
+			//If there is more than one coordinate available in the list/data set - draw
 			if(coordinates.DrawDiagram())
 			{
-				int offSetX = 50;//to not have graph at edges of label
-				int offSetY = Utility.RoundUpToBase((int)titleSize.Height);
-				float drawingAreaForX = diagramPanel.Width - 2 * offSetX;
-				float drawingAreaForY = diagramPanel.Height - 2 * offSetY;
+				offSetY = Utility.RoundUpToBase((int)titleSize.Height);
+				float drawingAreaForX = p.Width - 2 * offSetX;
+				float drawingAreaForY = p.Height - 2 * offSetY;
 				Pen blackPen = new Pen(Color.Black, 3);
 				PointF[] graphCoordinatesAsPoints;
 				PointF origo;
@@ -140,7 +170,7 @@ namespace Diagram_Generator
 				//Get panel coordinates for graph line
 				graphCoordinatesAsPoints = coordinates.GetCoordinatesAsPoints(drawingAreaForX, drawingAreaForY, offSetX, offSetY);
 				
-				//Draw the grap line
+				//Draw the graph line
 				g.DrawLines(blackPen, graphCoordinatesAsPoints);
 
 				//Get panel coordinates for origo
@@ -157,6 +187,7 @@ namespace Diagram_Generator
 				PointF endXAxis = new PointF(offSetX + drawingAreaForX, origo.Y);
 				g.DrawLine(blackPen, origo, startXAxis);
 				g.DrawLine(blackPen, origo, endXAxis);
+				//Draw the interval text for the x-axis
 				g.DrawString(intervalXText.ToString(), intervalTextFont, Brushes.Blue, startXAxis);
 				startXAxis.X += xAxisIntervalInPoints;
 				while (startXAxis.X < endXAxis.X)
@@ -171,6 +202,7 @@ namespace Diagram_Generator
 				PointF endYAxis = new PointF(origo.X, offSetY + drawingAreaForY);
 				g.DrawLine(blackPen, origo, startYAxis);
 				g.DrawLine(blackPen, origo, endYAxis);
+				//Draw the interval text for the y-axis
 				g.DrawString(intervalYText.ToString(), intervalTextFont, Brushes.Blue, endYAxis);
 				endYAxis.Y -= yAxisIntervalInPoints;
 				while (endYAxis.Y > startYAxis.Y)
@@ -183,7 +215,7 @@ namespace Diagram_Generator
 		}
 
 		/// <summary>
-		/// Method to export recipeManager to XML.
+		/// Method to export list of coordinates to XML.
 		/// The outcome of the operation is presented to the use via messageboxes.
 		/// </summary>
 		private void ExportRecipeManagerToXml(string fileName)
@@ -202,7 +234,7 @@ namespace Diagram_Generator
 
 		/// <summary>
 		/// Method to read/deserialise a xml file specified by the user
-		/// in to recipeManager.
+		/// in to list of coordinates.
 		/// </summary>
 		private void ImportRecipeManagerFromXml(string fileName)
 		{
@@ -218,6 +250,11 @@ namespace Diagram_Generator
 			}
 		}
 
+		/// <summary>
+		/// Menu action to export the list of coordinate to XML.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void exportXMLToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			SaveFileDialog xmlExport = new SaveFileDialog();
@@ -230,6 +267,11 @@ namespace Diagram_Generator
 			}
 		}
 
+		/// <summary>
+		/// Menu action to import XML-file to list of coordinates.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void importXMLToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			OpenFileDialog xmlImport = new OpenFileDialog();
@@ -243,30 +285,50 @@ namespace Diagram_Generator
 				UpdatelistBoxCoordinates();
 			}
 			xmlImport.Dispose();
-			diagramPanel.Invalidate(); //How to repaint the panel?
+			diagramPanel.Invalidate();
 		}
 
+		/// <summary>
+		/// Menu action to exit the application.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			if (Utility.AskUserIfSavToFile())
+			if (Utility.AskUserYesNo("Do you want to save the data to XML", "Save?"))
 			{
 				exportXMLToolStripMenuItem_Click(sender, e);
 			}
 			Application.Exit();
 		}
 
+		/// <summary>
+		/// Menu item to sort the list of coordinates based on the x-coordintare (ascending)
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void sortXdirToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			coordinates.Sort(new Coordinate.SortByXCoord());
 			UpdatelistBoxCoordinates();
 		}
 
+		/// <summary>
+		/// Menu item to sort the list of coordinates based on the y-coordintare (ascending)
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void sortYdirToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			coordinates.Sort(new Coordinate.SortByYCoord());
 			UpdatelistBoxCoordinates();
 		}
 
+		/// <summary>
+		/// Button action to add new coordinate.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void buttonAddNewCoord_Click(object sender, EventArgs e)
 		{
 			if(Utility.ValidateString(textBoxNewXCoord.Text) && Utility.ValidateString(textBoxNewYCoord.Text))
@@ -284,6 +346,12 @@ namespace Diagram_Generator
 			}
 		}
 
+		/// <summary>
+		/// Button action to redraw the graph. Useful when for example user has added a new coordinate through the
+		/// button or when user has rearranged the order in the list.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void buttonReDraw_Click(object sender, EventArgs e)
 		{
 			diagramPanel.Invalidate();
