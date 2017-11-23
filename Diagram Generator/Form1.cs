@@ -12,7 +12,7 @@ namespace Diagram_Generator
 {
 	public partial class Diagram_Generator : Form
 	{
-		private CoordinateManager coordinates;	//Manages the coordinates
+		private CoordinateManager coordinates;  //Manages the coordinates
 		int offSetX = 50; //to not have graph at edges of panel
 		int offSetY = 50; //to not have graph at edges of panel
 		public Diagram_Generator()
@@ -26,7 +26,6 @@ namespace Diagram_Generator
 
 			//Start up a new coordinateManager
 			coordinates = new CoordinateManager();
-			coordinates.SetList(CoordinatesGenerator.QuadrantOneTwoThreeFour()); //To start with something
 
 			//Show the coordinates in the listbox listBoxCoordinates
 			UpdatelistBoxCoordinates();
@@ -51,14 +50,14 @@ namespace Diagram_Generator
 		private void diagramPanel_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
 		{
 			var p = sender as Panel;
-			if ( e.X >= offSetX &&
-				 e.X <= p.Width-offSetX &&
+			if (e.X >= offSetX &&
+				 e.X <= p.Width - offSetX &&
 				 e.Y >= offSetY &&
-				 e.Y <= p.Height-offSetY)
+				 e.Y <= p.Height - offSetY)
 			{
 				Coordinate coordinate = coordinates.GetCoordinateFromPoints(e.X, p.Height - e.Y);
 				string insertPoint = String.Format("Insert new coordinates at ({0},{1})", (int)coordinate.xCoord, (int)coordinate.yCoord);
-				if(Utility.AskUserYesNo(insertPoint, "Add Coordinate?"))
+				if (Utility.AskUserYesNo(insertPoint, "Add Coordinate?"))
 				{
 					coordinates.Add(coordinate);
 					UpdatelistBoxCoordinates();
@@ -76,9 +75,9 @@ namespace Diagram_Generator
 		private void diagramPanel_Paint(object sender, PaintEventArgs e)
 		{
 			var p = sender as Panel; //diagramPanel
-			//Use below as reference when drawing
-			//p.Height
-			//p.Width
+									 //Use below as reference when drawing
+									 //p.Height
+									 //p.Width
 
 			var g = e.Graphics;
 
@@ -98,7 +97,7 @@ namespace Diagram_Generator
 				// https://msdn.microsoft.com/en-us/library/6xe5hazb(v=vs.110).aspx
 				titleSize = e.Graphics.MeasureString(title, titleFont);
 				fontSize -= 2;
-				if(fontSize == 2)
+				if (fontSize == 2)
 				{
 					titleSize = e.Graphics.MeasureString(title, titleFont);
 					break; //In case it is smallest possible font, just break here and print the long title
@@ -114,7 +113,7 @@ namespace Diagram_Generator
 			titleFont.Dispose();
 
 			//If there is more than one coordinate available in the list/data set - draw
-			if(coordinates.DrawDiagram())
+			if (coordinates.DrawDiagram())
 			{
 				offSetY = Utility.RoundUpToBase((int)titleSize.Height);
 				float drawingAreaForX = p.Width - 2 * offSetX;
@@ -136,8 +135,8 @@ namespace Diagram_Generator
 				   Utility.ConvertStringToInteger(textBoxIntervalX.Text, out int intervalX) &&
 				   Utility.ConvertStringToInteger(textBoxIntervalY.Text, out int intervalY))
 				{ //Manual settings of scale and intervals
-					//Set start and end values
-					//All future calculations depend on these values
+				  //Set start and end values
+				  //All future calculations depend on these values
 					coordinates.SetStartAndEnd(startX, startY, endX, endY);
 
 					//Get coordinates and text for the interval markers on the x-axis
@@ -169,7 +168,7 @@ namespace Diagram_Generator
 
 				//Get panel coordinates for graph line
 				graphCoordinatesAsPoints = coordinates.GetCoordinatesAsPoints(drawingAreaForX, drawingAreaForY, offSetX, offSetY);
-				
+
 				//Draw the graph line
 				g.DrawLines(blackPen, graphCoordinatesAsPoints);
 
@@ -211,6 +210,12 @@ namespace Diagram_Generator
 					g.DrawString(intervalYText.ToString(), intervalTextFont, Brushes.Blue, endYAxis);
 					endYAxis.Y -= yAxisIntervalInPoints;
 				}
+
+				textBoxInfo.Text = "Graph Plotted. Please use the(Re)Draw Diagram button to update the graph when settings have been modified or coordinates have been added.";
+			}
+			else
+			{
+				textBoxInfo.Text = "Please add at least two coordinates to start plotting.";
 			}
 		}
 
@@ -331,9 +336,9 @@ namespace Diagram_Generator
 		/// <param name="e"></param>
 		private void buttonAddNewCoord_Click(object sender, EventArgs e)
 		{
-			if(Utility.ValidateString(textBoxNewXCoord.Text) && Utility.ValidateString(textBoxNewYCoord.Text))
+			if (Utility.ValidateString(textBoxNewXCoord.Text) && Utility.ValidateString(textBoxNewYCoord.Text))
 			{
-				if(Utility.ConvertStringToFloat(textBoxNewXCoord.Text, out float newXCoord) &&
+				if (Utility.ConvertStringToFloat(textBoxNewXCoord.Text, out float newXCoord) &&
 				   Utility.ConvertStringToFloat(textBoxNewYCoord.Text, out float newYCoord))
 				{
 					coordinates.Add(new Coordinate
@@ -355,6 +360,38 @@ namespace Diagram_Generator
 		private void buttonReDraw_Click(object sender, EventArgs e)
 		{
 			diagramPanel.Invalidate();
+		}
+
+		private void checkBoxManualSettings_CheckedChanged(object sender, EventArgs e)
+		{
+			//No implementation at the moment
+		}
+
+		private void buttonDelete_Click(object sender, EventArgs e)
+		{
+			if(listBoxCoordinates.SelectedIndex != -1)
+			{
+				int index = listBoxCoordinates.SelectedIndex;
+				Coordinate coordinateToRemove = coordinates.GetAt(index);
+				string deleteCoord = String.Format("Do you want to delete the coordinate ({0},{1})?", coordinateToRemove.xCoord, coordinateToRemove.yCoord);
+				if (Utility.AskUserYesNo(deleteCoord, "Delete Coordinate?"))
+				{
+					coordinates.DeleteAt(index);
+					UpdatelistBoxCoordinates();
+					diagramPanel.Invalidate();
+				}
+			}
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			string deleteAll = String.Format("Do you want to delete all coordinates?");
+			if (Utility.AskUserYesNo(deleteAll, "Delete All Coordinates?"))
+			{
+				coordinates.DeleteAll();
+				UpdatelistBoxCoordinates();
+				diagramPanel.Invalidate();
+			}
 		}
 	}
 }

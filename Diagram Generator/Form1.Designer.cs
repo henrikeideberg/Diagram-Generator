@@ -39,6 +39,7 @@
 			this.sortYdirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.buttonDelete = new System.Windows.Forms.Button();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.buttonAddNewCoord = new System.Windows.Forms.Button();
 			this.textBoxNewYCoord = new System.Windows.Forms.TextBox();
@@ -58,12 +59,15 @@
 			this.textBoxIntervalX = new System.Windows.Forms.TextBox();
 			this.textBoxIntervalY = new System.Windows.Forms.TextBox();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
-			this.checkBoxManualSettings = new System.Windows.Forms.CheckBox();
 			this.labelEndValue = new System.Windows.Forms.Label();
 			this.textBoxEndX = new System.Windows.Forms.TextBox();
 			this.textBoxEndY = new System.Windows.Forms.TextBox();
+			this.checkBoxManualSettings = new System.Windows.Forms.CheckBox();
+			this.button1 = new System.Windows.Forms.Button();
+			this.textBoxInfo = new System.Windows.Forms.TextBox();
 			this.menuStrip1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
+			this.groupBox3.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			this.SuspendLayout();
@@ -156,12 +160,24 @@
 			// 
 			// groupBox3
 			// 
+			this.groupBox3.Controls.Add(this.button1);
+			this.groupBox3.Controls.Add(this.buttonDelete);
 			this.groupBox3.Location = new System.Drawing.Point(12, 164);
 			this.groupBox3.Name = "groupBox3";
 			this.groupBox3.Size = new System.Drawing.Size(236, 86);
 			this.groupBox3.TabIndex = 7;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Modify coordinate";
+			// 
+			// buttonDelete
+			// 
+			this.buttonDelete.Location = new System.Drawing.Point(6, 19);
+			this.buttonDelete.Name = "buttonDelete";
+			this.buttonDelete.Size = new System.Drawing.Size(110, 23);
+			this.buttonDelete.TabIndex = 0;
+			this.buttonDelete.Text = "Delete Coordinate";
+			this.buttonDelete.UseVisualStyleBackColor = true;
+			this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
 			// 
 			// groupBox2
 			// 
@@ -229,9 +245,9 @@
 			// 
 			// buttonReDraw
 			// 
-			this.buttonReDraw.Location = new System.Drawing.Point(115, 316);
+			this.buttonReDraw.Location = new System.Drawing.Point(299, 314);
 			this.buttonReDraw.Name = "buttonReDraw";
-			this.buttonReDraw.Size = new System.Drawing.Size(150, 34);
+			this.buttonReDraw.Size = new System.Drawing.Size(72, 34);
 			this.buttonReDraw.TabIndex = 4;
 			this.buttonReDraw.Text = "(Re)Draw Diagram";
 			this.buttonReDraw.UseVisualStyleBackColor = true;
@@ -338,17 +354,7 @@
 			this.groupBox4.Size = new System.Drawing.Size(380, 222);
 			this.groupBox4.TabIndex = 16;
 			this.groupBox4.TabStop = false;
-			this.groupBox4.Text = "Settings";
-			// 
-			// checkBoxManualSettings
-			// 
-			this.checkBoxManualSettings.AutoSize = true;
-			this.checkBoxManualSettings.Location = new System.Drawing.Point(103, 187);
-			this.checkBoxManualSettings.Name = "checkBoxManualSettings";
-			this.checkBoxManualSettings.Size = new System.Drawing.Size(121, 17);
-			this.checkBoxManualSettings.TabIndex = 17;
-			this.checkBoxManualSettings.Text = "Use manual settings";
-			this.checkBoxManualSettings.UseVisualStyleBackColor = true;
+			this.groupBox4.Text = "Manual Settings";
 			// 
 			// labelEndValue
 			// 
@@ -373,11 +379,45 @@
 			this.textBoxEndY.Size = new System.Drawing.Size(100, 20);
 			this.textBoxEndY.TabIndex = 18;
 			// 
+			// checkBoxManualSettings
+			// 
+			this.checkBoxManualSettings.AutoSize = true;
+			this.checkBoxManualSettings.Location = new System.Drawing.Point(103, 187);
+			this.checkBoxManualSettings.Name = "checkBoxManualSettings";
+			this.checkBoxManualSettings.Size = new System.Drawing.Size(121, 17);
+			this.checkBoxManualSettings.TabIndex = 17;
+			this.checkBoxManualSettings.Text = "Use manual settings";
+			this.checkBoxManualSettings.UseVisualStyleBackColor = true;
+			this.checkBoxManualSettings.CheckedChanged += new System.EventHandler(this.checkBoxManualSettings_CheckedChanged);
+			// 
+			// button1
+			// 
+			this.button1.Location = new System.Drawing.Point(6, 48);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(110, 23);
+			this.button1.TabIndex = 1;
+			this.button1.Text = "Delete All";
+			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
+			// 
+			// textBoxInfo
+			// 
+			this.textBoxInfo.BackColor = System.Drawing.SystemColors.Control;
+			this.textBoxInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.textBoxInfo.Enabled = false;
+			this.textBoxInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.textBoxInfo.Location = new System.Drawing.Point(12, 291);
+			this.textBoxInfo.Multiline = true;
+			this.textBoxInfo.Name = "textBoxInfo";
+			this.textBoxInfo.Size = new System.Drawing.Size(249, 78);
+			this.textBoxInfo.TabIndex = 17;
+			// 
 			// Diagram_Generator
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1085, 704);
+			this.Controls.Add(this.textBoxInfo);
 			this.Controls.Add(this.groupBox4);
 			this.Controls.Add(this.buttonReDraw);
 			this.Controls.Add(this.groupBox1);
@@ -389,6 +429,7 @@
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
+			this.groupBox3.ResumeLayout(false);
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			this.groupBox4.ResumeLayout(false);
@@ -434,6 +475,9 @@
 		private System.Windows.Forms.Label labelEndValue;
 		private System.Windows.Forms.TextBox textBoxEndX;
 		private System.Windows.Forms.TextBox textBoxEndY;
+		private System.Windows.Forms.Button buttonDelete;
+		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.TextBox textBoxInfo;
 	}
 }
 
